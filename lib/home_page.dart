@@ -22,12 +22,29 @@ class HomePage extends StatelessWidget {
       );
       teams.add(team);
     }
-    ;
+
+    print(teams.length);
   }
 
   @override
   Widget build(BuildContext context) {
-    getTeams();
-    return Container();
+    return Scaffold(
+      body: FutureBuilder(
+          future: getTeams(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return ListView.builder(itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(teams[index].abbreviation),
+                );
+              });
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            ;
+          }),
+    );
   }
 }
