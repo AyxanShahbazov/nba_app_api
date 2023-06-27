@@ -29,6 +29,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 20, 14, 86),
+        title: Text('NBA Teams'),
+      ),
       body: FutureBuilder(
           future: getTeams(),
           builder: (context, snapshot) {
@@ -36,10 +40,11 @@ class HomePage extends StatelessWidget {
               return ListView.builder(itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(teams[index].abbreviation),
+                  subtitle: Text(teams[index].city),
                 );
               });
             } else {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
